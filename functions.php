@@ -1,5 +1,7 @@
 <?php
 
+    add_theme_support('post-thumbnails');
+
     function loadScriptsSite() {
         
         $ver = null;
@@ -104,3 +106,7 @@
     }
     
     add_action('wp_enqueue_scripts', 'loadScriptsSite');
+    
+    add_filter('excerpt_more', function($more) {
+        return '';
+    });

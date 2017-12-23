@@ -445,7 +445,7 @@ ul.social-share li a:hover {
 }
 
 #recent-works{
-    padding-bottom: ;
+    padding-bottom: 0;
 }
 
 .recent-work-wrap {
@@ -1827,8 +1827,10 @@ ul.sidebar-gallery {
   margin-left: 15px;
 }
 
+.post-ratings-image {
+    width: 12px;
+}
 
-
-
-
-
+.post-ratings img {
+    width: 12px;
+}

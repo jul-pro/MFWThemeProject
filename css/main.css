@@ -1834,3 +1834,11 @@ ul.sidebar-gallery {
 .post-ratings img {
     width: 12px;
 }
+
+#content {
+    margin-top: 70px;
+}
+
+body>main {
+    padding-top: 70px; 
+}

@@ -1,6 +1,14 @@
 <?php
+    
+    define('MFWT_TEXTDOMAIN', 'mfwthemeproject');
 
-    add_theme_support('post-thumbnails');
+    function mfwthemeproject_setup() {
+        load_theme_textdomain(MFWT_TEXTDOMAIN, get_template_directory() . '/languages');
+        add_theme_support('post-thumbnails');
+        register_nav_menu('primary', __('Primary menu', MFWT_TEXTDOMAIN));
+    }
+    
+    add_action('after_setup_theme', 'mfwthemeproject_setup');
 
     function loadScriptsSite() {
         

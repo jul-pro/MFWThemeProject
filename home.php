@@ -7,7 +7,7 @@
 		</header>
 	<?php else : ?>
 	<div class="center">
-            <h2 class="page-title"><?php _e( 'Blogs', MFW_PLUGIN_TEXTDOMAIN ); ?></h2>
+            <h2 class="page-title"><?php _e( 'Blogs', MFWT_TEXTDOMAIN ); ?></h2>
             <p class="lead">Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
         </div>
 	<?php endif; ?>

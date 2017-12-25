@@ -15,6 +15,7 @@
 </head>
 <body class="homepage">   
     <header id="header">
+        
         <nav class="navbar navbar-fixed-top" role="banner">
             <div class="container">
                 <div class="navbar-header">
@@ -28,14 +29,35 @@
                 </div>
 				
                 <div class="collapse navbar-collapse navbar-right">
-                    <ul class="nav navbar-nav">
+                    <?php
+                        $args = array(
+                            'theme_location' => '',
+                            'menu' => '',
+                            'container' => '',
+                            'container_class' => '',
+                            'container_id' => '',
+                            'menu_class' => 'nav navbar-nav',
+                            'menu_id' => '',
+                            'echo' => true,
+                            'fallback_cb' => '',
+                            'before' => '',
+                            'after' => '',
+                            'link_before' => '',
+                            'link_after' => '',
+                            'depth' => 0,
+                            'walker' => '',
+                        );
+            
+                        wp_nav_menu($args);
+                    ?>
+<!--                    <ul class="nav navbar-nav">
                         <li><a href="#">Home</a></li>
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Services</a></li>
                         <li><a href="#">Portfolio</a></li>
                         <li class="active"><a href="#">Blog</a></li> 
                         <li><a href="#">Contact</a></li>                        
-                    </ul>
+                    </ul>-->
                 </div>
             </div><!--/.container-->
         </nav><!--/nav-->

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gp Bootstrap Template</title>
+    
 
     <?php wp_head(); ?>
     <!--[if lt IE 9]>
@@ -25,7 +25,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html">Gp.</a>
+                    <?php
+                        if(has_custom_logo()) {
+                            the_custom_logo();
+                        } else {
+                            echo '<a class="navbar-brand" href="index.html">Gp2.</a>';
+                        }
+                    ?>                    
                 </div>
 				
                 <div class="collapse navbar-collapse navbar-right">

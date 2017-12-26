@@ -1,4 +1,9 @@
 <aside class="col-md-4">
+    <?php
+        if(function_exists('dynamic_sidebar')) {
+            dynamic_sidebar('right_sidebar');
+        }
+    ?>
     <div class="widget search">
         <form role="form">
             <input type="text" class="form-control search_box" autocomplete="off" placeholder="Search Here">

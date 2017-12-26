@@ -182,3 +182,16 @@
     function renderThemeMenu() {
         _e('Sub Theme Menu', MFWT_TEXTDOMAIN);
     }
+    
+    
+    function registerMyWidgets() {
+        register_sidebar(array(
+            'name' => __('Right side bar of the site', MFWT_TEXTDOMAIN),
+            'id' => 'right-sidebar',
+            'description' => __('These widgets will be shown in the right column of the site', MFWT_TEXTDOMAIN),
+            'before_title' => '<h1>',
+            'after_title' => '</h1>'
+        ));
+    }
+    
+    add_action('widgets_init', 'registerMyWidgets');

@@ -120,3 +120,65 @@
     add_filter('excerpt_more', function($more) {
         return '';
     });
+
+    function addAdminMenu() {
+        $mainMenuPage = add_menu_page(
+            _x(
+                'Theme Menu Title', 
+                'admin menu page',
+                MFWT_TEXTDOMAIN
+            ),
+            
+            _x(
+                'Theme Menu Title',
+                'admin menu page',
+                MFWT_TEXTDOMAIN
+            ),
+                
+            'manage_options',
+            MFWT_TEXTDOMAIN, 
+            'renderMainMenu',
+            get_template_directory_uri() . '/images/main-menu.png'
+        );
+        
+        $subMenuPage = add_submenu_page
+        (
+            MFWT_TEXTDOMAIN, 
+            _x(
+                'Sub Theme Menu Title',
+                'admin menu page',
+                MFWT_TEXTDOMAIN
+            ),
+            _x(
+                'Sub Theme Menu Title',
+                'admin menu page',
+                MFWT_TEXTDOMAIN
+            ),
+            'manage_options',
+            'mfwt_control_sub_menu',
+            'renderSubMenu'
+        );
+        
+        
+        $themeMenuPage = add_theme_page(
+            __('Sub Theme Menu Page', MFWT_TEXTDOMAIN),
+            __('Sub Theme Menu Page', MFWT_TEXTDOMAIN),
+            'read',
+            'mfw_theme_control_sub_theme_menu',
+            'renderThemeMenu'
+        );
+    }
+    
+    add_action('admin_menu', 'addAdminMenu');
+    
+    function renderMainMenu() {
+        _e('MFW theme page', MFWT_TEXTDOMAIN);
+    }
+    
+    function renderSubMenu() {
+        _e('MFW Sub Menu Theme Page', MFWT_TEXTDOMAIN);
+    }
+    
+    function renderThemeMenu() {
+        _e('Sub Theme Menu', MFWT_TEXTDOMAIN);
+    }

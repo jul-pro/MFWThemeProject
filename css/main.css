@@ -1842,3 +1842,32 @@ ul.sidebar-gallery {
 body>main {
     padding-top: 70px; 
 }
+
+.nav-links > a {
+    border: 1px solid #f1f1f1;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-size: 16px;
+    padding: 5px 14px;
+}
+
+.nav-links > a:hover {
+    color: #FFF;
+    background-color: #E8CE0E;
+    border-color: #E8CE0E;
+}
+
+.nav-links > span {
+    margin-right: 5px;
+    font-size: 16px;    
+    color: #E8CE0E;
+}
+
+.nav-links > span.current {
+    border: 1px solid #e8ce0e;
+    background-color: #E8CE0E;
+    color: #fff;    
+    border-radius: 5px;
+    cursor: default;
+    padding: 5px 15px;
+}

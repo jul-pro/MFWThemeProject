@@ -198,3 +198,19 @@
     
     require get_template_directory() . '/widgets/MFWExampleWidget.php';
     add_action('widgets_init', create_function('', 'return register_widget("widgets\MFWExampleWidget");'));
+    
+    
+    $pagination_args = array(
+        'prev_text' => '<i class="fa fa-long-arrow-left"></i> ' . __('Previous'),
+        'next_text' => __('Next') . ' <i class="fa fa-long-arrow-right"></i>'
+    );
+    
+    add_filter('navigation_markup_template', 'my_navigation_template');
+    
+    function my_navigation_template() {
+        return '
+	<nav class="navigation %1$s" role="navigation">
+		<div class="nav-links">%3$s</div>
+	</nav>    
+	';
+    }

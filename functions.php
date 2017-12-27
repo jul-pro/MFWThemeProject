@@ -195,3 +195,6 @@
     }
     
     add_action('widgets_init', 'registerMyWidgets');
+    
+    require get_template_directory() . '/widgets/MFWExampleWidget.php';
+    add_action('widgets_init', create_function('', 'return register_widget("widgets\MFWExampleWidget");'));

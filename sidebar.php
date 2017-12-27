@@ -1,14 +1,14 @@
 <aside class="col-md-4">
     <?php
         if(function_exists('dynamic_sidebar')) {
-            dynamic_sidebar('right_sidebar');
+            dynamic_sidebar('right-sidebar');
         }
     ?>
-    <div class="widget search">
+<!--    <div class="widget search">
         <form role="form">
             <input type="text" class="form-control search_box" autocomplete="off" placeholder="Search Here">
         </form>
-    </div><!--/.search-->
+    </div>/.search-->
     				
     <div class="widget categories">
         <h3>Recent Comments</h3>

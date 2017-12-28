@@ -8,6 +8,7 @@
         add_theme_support('custom-logo');
         add_theme_support('post-thumbnails');
         register_nav_menu('primary', __('Primary menu', MFWT_TEXTDOMAIN));
+        register_nav_menu('footer_menu', __('Footer menu', MFWT_TEXTDOMAIN));
     }
     
     add_action('after_setup_theme', 'mfwthemeproject_setup');
@@ -213,4 +214,141 @@
 		<div class="nav-links">%3$s</div>
 	</nav>    
 	';
+    }
+    
+    add_action('customize_register', 'mfwthemeproject_customize_register');
+    
+    function mfwthemeproject_customize_register ($wp_customize) {
+        $wp_customize->add_setting(
+            'facebook_link',
+            array(
+                'default' => '',
+                'transport' => 'refresh'
+            )
+        );
+        
+        $wp_customize->add_setting(
+            'twitter_link',
+            array(
+                'default' => '',
+                'transport' => 'refresh'
+            )
+        );
+        
+        $wp_customize->add_setting(
+            'linkedin_link',
+            array(
+                'default' => '',
+                'transport' => 'refresh'
+            )
+        );
+        
+        $wp_customize->add_setting(
+            'dribbble_link',
+            array(
+                'default' => '',
+                'transport' => 'refresh'
+            )
+        );
+        
+        $wp_customize->add_setting(
+            'skype_link',
+            array(
+                'default' => '',
+                'transport' => 'refresh'
+            )
+        );
+        
+        $wp_customize->add_setting(
+            'copyright_text',
+            array(
+                'default' => '',
+                'transport' => 'refresh'
+            )
+        );
+        
+        
+        $wp_customize->add_section(
+            'social_section',
+            array(
+                'title' => __('Social buttons', MFWT_TEXTDOMAIN),
+                'priority' => 30,
+            )
+        );
+        
+        $wp_customize->add_control(
+            'facebook_link',
+            array(
+                'label' => __('Facebook link', MFWT_TEXTDOMAIN),
+                'section' => 'social_section',
+                'settings' => 'facebook_link',
+                'type' => 'text'
+                
+            )
+        );
+        
+        $wp_customize->add_control(
+            'facebook_link',
+            array(
+                'label' => __('Facebook link', MFWT_TEXTDOMAIN),
+                'section' => 'social_section',
+                'settings' => 'facebook_link',
+                'type' => 'text'
+                
+            )
+        );
+        
+        $wp_customize->add_control(
+            'twitter_link',
+            array(
+                'label' => __('Twitter link', MFWT_TEXTDOMAIN),
+                'section' => 'social_section',
+                'settings' => 'twitter_link',
+                'type' => 'text'
+                
+            )
+        );
+        
+        $wp_customize->add_control(
+            'linkedin_link',
+            array(
+                'label' => __('LinkedIn link', MFWT_TEXTDOMAIN),
+                'section' => 'social_section',
+                'settings' => 'linkedin_link',
+                'type' => 'text'
+                
+            )
+        );
+        
+        $wp_customize->add_control(
+            'dribbble_link',
+            array(
+                'label' => __('Dribbble link', MFWT_TEXTDOMAIN),
+                'section' => 'social_section',
+                'settings' => 'dribbble_link',
+                'type' => 'text'
+                
+            )
+        );
+        
+        $wp_customize->add_control(
+            'skype_link',
+            array(
+                'label' => __('Skype link', MFWT_TEXTDOMAIN),
+                'section' => 'social_section',
+                'settings' => 'skype_link',
+                'type' => 'text'
+                
+            )
+        );
+        
+        $wp_customize->add_control(
+            'copyright_text',
+            array(
+                'label' => __('Copyright text', MFWT_TEXTDOMAIN),
+                'section' => 'title_tagline',
+                'settings' => 'copyright_text',
+                'type' => 'text'
+            )
+        );
     }

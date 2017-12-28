@@ -37,7 +37,7 @@
                 <div class="collapse navbar-collapse navbar-right">
                     <?php
                         $args = array(
-                            'theme_location' => '',
+                            'theme_location' => 'primary',
                             'menu' => '',
                             'container' => '',
                             'container_class' => '',

@@ -261,6 +261,7 @@ ul.social-share li a:hover {
 
 .navbar-fixed-top {
   border: none;
+  margin-top: 30px;
 }
 
 .navbar-fixed-top .navbar-brand {
@@ -1496,18 +1497,18 @@ textarea#message{
   margin-bottom: 20px;
 }
 
-.blog_category{
+.blog_category, .widget_categories ul{
   list-style:none;
   margin:0;
   padding:0;
 }
 
-.blog_category li{
+.blog_category li, .widget_categories li{
   float:none;
   margin-bottom:20px;
 }
 
-.blog_category li a {
+.blog_category li a, .widget_categories li a {
   background:#f5f5f5;
   border-radius: 4px;
   color: #888;
@@ -1515,7 +1516,7 @@ textarea#message{
   padding: 5px 15px;
 }
 
-.blog_category li a:hover{
+.blog_category li a:hover, .widget_categories li a:hover{
   background:#E8CE0E;
   color: #fff;
 }
@@ -1543,17 +1544,21 @@ textarea#message{
   font-weight: normal;
 }
 
+.widget_archive ul,
 .blog_archieve {
   list-style: none outside none;
   margin: 0;
   padding: 0;
 }
 
+.widget_archive li,
 .blog_archieve li {
   padding: 10px 0;
   border-bottom: 1px solid #f5f5f5;
 }
 
+
+.widget_archive li:first-child,
 .blog_archieve li:first-child {
   padding-top: 0;
 }
@@ -1727,6 +1732,7 @@ ul.pagination > li:hover > a {
 }
 
 
+ul.wp-tag-cloud,
 ul.tag-cloud, 
 ul.sidebar-gallery {
   list-style: none;
@@ -1734,11 +1740,13 @@ ul.sidebar-gallery {
   margin: 0;
 }
 
+.wp-tag-cloud li,
 .tag-cloud li{
     display: inline-block;
     margin-bottom: 3px;
 }
 
+.wp-tag-cloud li a,
 .tag-cloud li a {
   background: #f5f5f5;
   color: #888;
@@ -1747,6 +1755,7 @@ ul.sidebar-gallery {
   padding: 8px 15px;
 }
 
+.wp-tag-cloud li a:hover,
 .tag-cloud li a:hover{
   background:#E8CE0E;
   color: #fff;  

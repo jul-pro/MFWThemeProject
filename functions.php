@@ -189,9 +189,11 @@
         register_sidebar(array(
             'name' => __('Right side bar of the site', MFWT_TEXTDOMAIN),
             'id' => 'right-sidebar',
-            'description' => __('These widgets will be shown in the right column of the site', MFWT_TEXTDOMAIN),
-            'before_title' => '<h1>',
-            'after_title' => '</h1>'
+            'description' => __('Widgets will be shown in the right column of the site', MFWT_TEXTDOMAIN),
+            'before_widget' => '<div id="%1$s" class="widget %2$s">',
+            'after_widget' => '</div>',
+            'before_title' => '<h3>',
+            'after_title' => '</h3>'
         ));
     }
     
@@ -199,7 +201,8 @@
     
     require get_template_directory() . '/widgets/MFWExampleWidget.php';
     add_action('widgets_init', create_function('', 'return register_widget("widgets\MFWExampleWidget");'));
-    
+    require get_template_directory() . '/widgets/class-widget-mfwp-gallery.php';
+    add_action('widgets_init', create_function('', 'return register_widget("widgets\Widget_MFWP_Gallery");'));
     
     $pagination_args = array(
         'prev_text' => '<i class="fa fa-long-arrow-left"></i> ' . __('Previous'),
@@ -351,4 +354,182 @@
                 'type' => 'text'
             )
         );
+    }
+    
+    class Walker_Category_Mfwthemeproject extends Walker_Category {
+        
+        public function start_el( &$output, $category, $depth = 0, $args = array(), $id = 0 ) {
+		/** This filter is documented in wp-includes/category-template.php */
+		$cat_name = apply_filters(
+			'list_cats',
+			esc_attr( $category->name ),
+			$category
+		);
+
+		// Don't generate an element if the category name is empty.
+		if ( ! $cat_name ) {
+			return;
+		}
+
+		$link = '<a href="' . esc_url( get_term_link( $category ) ) . '" ';
+		if ( $args['use_desc_for_title'] && ! empty( $category->description ) ) {
+			/**
+			 * Filters the category description for display.
+			 *
+			 * @since 1.2.0
+			 *
+			 * @param string $description Category description.
+			 * @param object $category    Category object.
+			 */
+			$link .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $category->description, $category ) ) ) . '"';
+		}
+
+		$link .= '>';
+		$link .= $cat_name . ' ';
+                if ( ! empty( $args['show_count'] ) ) {
+			$link .= '<span class="badge">' . number_format_i18n($category->count) . '</span>';
+//                        $link .= '<span class="badge">' . sprintf("%02d", 122345) . '</span>';
+		}
+                $link .= '</a>';
+
+		if ( ! empty( $args['feed_image'] ) || ! empty( $args['feed'] ) ) {
+			$link .= ' ';
+
+			if ( empty( $args['feed_image'] ) ) {
+				$link .= '(';
+			}
+
+			$link .= '<a href="' . esc_url( get_term_feed_link( $category->term_id, $category->taxonomy, $args['feed_type'] ) ) . '"';
+
+			if ( empty( $args['feed'] ) ) {
+				$alt = ' alt="' . sprintf(__( 'Feed for all posts filed under %s' ), $cat_name ) . '"';
+			} else {
+				$alt = ' alt="' . $args['feed'] . '"';
+				$name = $args['feed'];
+				$link .= empty( $args['title'] ) ? '' : $args['title'];
+			}
+
+			$link .= '>';
+
+			if ( empty( $args['feed_image'] ) ) {
+				$link .= $name;
+			} else {
+				$link .= "<img src='" . $args['feed_image'] . "'$alt" . ' />';
+			}
+			$link .= '</a>';
+
+			if ( empty( $args['feed_image'] ) ) {
+				$link .= ')';
+			}
+		}
+
+		
+		if ( 'list' == $args['style'] ) {
+			$output .= "\t<li";
+			$css_classes = array(
+				'cat-item',
+				'cat-item-' . $category->term_id,
+			);
+
+			if ( ! empty( $args['current_category'] ) ) {
+				// 'current_category' can be an array, so we use `get_terms()`.
+				$_current_terms = get_terms( $category->taxonomy, array(
+					'include' => $args['current_category'],
+					'hide_empty' => false,
+				) );
+
+				foreach ( $_current_terms as $_current_term ) {
+					if ( $category->term_id == $_current_term->term_id ) {
+						$css_classes[] = 'current-cat';
+					} elseif ( $category->term_id == $_current_term->parent ) {
+						$css_classes[] = 'current-cat-parent';
+					}
+					while ( $_current_term->parent ) {
+						if ( $category->term_id == $_current_term->parent ) {
+							$css_classes[] =  'current-cat-ancestor';
+							break;
+						}
+						$_current_term = get_term( $_current_term->parent, $category->taxonomy );
+					}
+				}
+			}
+
+			/**
+			 * Filters the list of CSS classes to include with each category in the list.
+			 *
+			 * @since 4.2.0
+			 *
+			 * @see wp_list_categories()
+			 *
+			 * @param array  $css_classes An array of CSS classes to be applied to each list item.
+			 * @param object $category    Category data object.
+			 * @param int    $depth       Depth of page, used for padding.
+			 * @param array  $args        An array of wp_list_categories() arguments.
+			 */
+			$css_classes = implode( ' ', apply_filters( 'category_css_class', $css_classes, $category, $depth, $args ) );
+
+			$output .=  ' class="' . $css_classes . '"';
+			$output .= ">$link\n";
+		} elseif ( isset( $args['separator'] ) ) {
+			$output .= "\t$link" . $args['separator'] . "\n";
+		} else {
+			$output .= "\t$link<br />\n";
+		}
+	}
+    }
+    
+    function mfwthemeproject_widget_categories($args) {
+        $walker = new Walker_Category_Mfwthemeproject();
+        
+        $args = array_merge($args, array('walker' => $walker));
+        
+        return $args;
+    }
+    
+    add_filter('widget_categories_args', 'mfwthemeproject_widget_categories');
+    
+    
+    add_filter('widget_tag_cloud_args', 'mfwthemeproject_tag_cloud');
+    
+    function mfwthemeproject_tag_cloud($args) {
+        $args['format'] = 'list';
+        return $args;
+    }
+    
+    add_filter('get_archives_link', 'mfwthemeproject_archives_link', 10, 6);
+    
+    function mfwthemeproject_archives_link($link_html, $url, $text, $format, $before, $after) {
+        
+        if(strpos($after, '&nbsp;(') !== 0) {
+            return $link_html;
+        }
+        
+        $end_pos_of_count = strpos($after, ')');
+        $count = substr($after, 0, ++$end_pos_of_count);
+        
+        $start_pos_of_after = strpos($link_html, $after);
+        $link_without_after = substr($link_html, 0, $start_pos_of_after);
+        $after = substr($after, ++$end_pos_of_count);
+        $link_html = $link_without_after . $after;
+        $old_link = "<a href='$url'>$text</a>";
+        $new_link = "<a href='$url'><i class='fa fa-angle-double-right'></i> $text<span class='pull-right'>$count</span></a>";
+        
+        $link_html = str_replace($old_link, $new_link, $link_html);
+        return $link_html;
+    }
+    
+    
+    add_filter( 'manage_pages_columns', 'revealid_add_id_column', 5 );
+    add_action( 'manage_pages_custom_column', 'revealid_id_column_content', 5, 2 );
+
+
+    function revealid_add_id_column( $columns ) {
+       $columns['revealid_id'] = 'ID';
+       return $columns;
+    }
+
+    function revealid_id_column_content( $column, $id ) {
+      if( 'revealid_id' == $column ) {
+        echo $id;
+      }
     }

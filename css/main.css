@@ -173,6 +173,10 @@ body > section {
 /*************************
 *******Header******
 **************************/
+body.customize-support .navbar-fixed-top {
+    margin-top: 30px;
+}
+
 .navbar-fixed-top .navbar-toggle .icon-bar {
   background-color: #fff;
 }
@@ -261,7 +265,7 @@ ul.social-share li a:hover {
 
 .navbar-fixed-top {
   border: none;
-  margin-top: 30px;
+  
 }
 
 .navbar-fixed-top .navbar-brand {
